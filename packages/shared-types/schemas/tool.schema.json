@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "skill-tool",
+  "title": "Tool Definition",
+  "type": "object",
+  "required": ["name", "description", "inputSchema", "handler"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z_][a-z0-9_]*$",
+      "description": "Tool name (snake_case)"
+    },
+    "description": {
+      "type": "string",
+      "description": "Tool description for Claude"
+    },
+    "inputSchema": {
+      "type": "object",
+      "description": "JSON Schema for tool input"
+    },
+    "outputSchema": {
+      "type": "object",
+      "description": "JSON Schema for tool output"
+    },
+    "handler": {
+      "type": "object",
+      "required": ["type", "config"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["http", "mcp", "function"]
+        },
+        "config": {
+          "type": "object"
+        }
+      }
+    }
+  }
+}

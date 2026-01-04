@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "skill-prompt",
+  "title": "Prompt Configuration",
+  "type": "object",
+  "properties": {
+    "system": {
+      "type": "string",
+      "description": "System prompt content"
+    },
+    "examples": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["user", "assistant"],
+        "properties": {
+          "user": { "type": "string" },
+          "assistant": { "type": "string" }
+        }
+      }
+    },
+    "templates": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["content"],
+        "properties": {
+          "content": { "type": "string" },
+          "variables": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

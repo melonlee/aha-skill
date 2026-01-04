@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "skill-manifest",
+  "title": "Skill Manifest",
+  "type": "object",
+  "required": ["id", "name", "version", "sourceType"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "description": "Unique skill identifier"
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Semantic version"
+    },
+    "description": {
+      "type": "string"
+    },
+    "sourceType": {
+      "type": "string",
+      "enum": ["mcp", "rest-api", "openapi"]
+    },
+    "tools": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "permissions": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}
