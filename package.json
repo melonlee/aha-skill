@@ -8,6 +8,7 @@
   ],
   "scripts": {
     "dev": "docker-compose up",
+    "dev:local": "./start-dev.sh",
     "dev:web": "npm run dev -w apps/web",
     "dev:gateway": "npm run dev -w apps/gateway",
     "dev:node-service": "npm run dev -w apps/node-service",
