@@ -1,0 +1,23 @@
+FROM alpine:3.18
+
+# 1. Install base packages
+RUN apk add --no-cache \
+    bash \
+    curl \
+    python3 \
+    py3-pip \
+    ca-certificates
+
+# 2. Install common Python libraries
+# Note: numpy/pandas might need build dependencies on Alpine. 
+# Using --break-system-packages or venv is recommended in newer Alpine/Python, 
+# but for simplicity we stick to global install if pip permits.
+# Alpine 3.18 uses Python 3.11 which enforces PEP 668.
+# We might need --break-system-packages
+RUN pip3 install --no-cache-dir --break-system-packages \
+    requests \
+    numpy \
+    pandas
+
+# 3. Create non-privileged user
+RUN adduser -D -u 9999 sandbox_user

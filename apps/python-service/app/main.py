@@ -1,9 +1,11 @@
 from typing import Optional, Dict
+import re
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.models import ConvertRequest, ConvertResponse, ClaudeSkill
 from app.converters import McpConverter
+from app.sandbox import SandboxManager, SandboxRequest, SandboxResponse
 
 app = FastAPI(
     title="Skill Python Service",
@@ -98,18 +100,9 @@ async def validate_skill(skill_md: str):
     }
 
 
-@app.post("/skill/package")
-async def package_skill(skill_md: str, skill_name: str):
-    """Generate skill directory structure"""
-    files = {
-        "{}/SKILL.md".format(skill_name): skill_md,
-    }
+sandbox_manager = SandboxManager()
 
-    return {
-        "success": True,
-        "files": files,
-        "install_path": ".claude/skills/{}/".format(skill_name),
-    }
-
-
-import re
+@app.post("/api/sandbox/run")
+async def run_sandbox(request: SandboxRequest) -> SandboxResponse:
+    """Run code in a secure sandbox"""
+    return await sandbox_manager.run(request)
